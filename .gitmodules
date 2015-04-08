@@ -1,0 +1,3 @@
+[submodule "libight"]
+	path = libight
+	url = https://github.com/alessandro40/libight.git
