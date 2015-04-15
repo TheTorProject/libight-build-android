@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 CONFIG=config
 # export BASE_DIR=/home/alessandro/src/toolchains

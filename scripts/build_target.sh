@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 export SYSROOT=${ANDROID_TOOLCHAIN}/sysroot
  

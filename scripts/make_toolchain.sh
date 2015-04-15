@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # If launching directly this script, set path to the NDK
 # export NDK=

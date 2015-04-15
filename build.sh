@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 # Set path to NDK
 export NDK=<NDK-ROOT>
