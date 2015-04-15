@@ -1,20 +1,26 @@
 #!/bin/sh -e
 
-# If launching directly this script, set path to the NDK
-# export NDK=
+ARCHS="arm-linux-androideabi mipsel-linux-android x86"
+APIS="21"
 
-# If launching directly this script, set path to the base directory where the
-# toolchain will be created
-# export BASE_DIR=
+if [ $# -eq 0 ]; then
+    NDK=$HOME/Android
+elif [ $# -eq 1 ]; then
+    NDK=$1
+else
+    echo "Usage: $0 [/path/to/ndk]" 1>&2
+    exit 1
+fi
 
-MAKE_TOOLCHAIN=${NDK}/build/tools/make-standalone-toolchain.sh
-CONFIG=config
+BASEDIR=./toolchain
+MAKE_TOOLCHAIN=${NDK}/android-ndk-r10d/build/tools/make-standalone-toolchain.sh
 
-for arch in $(cat $CONFIG/arch.list); do
-    for api in $(cat $CONFIG/api.list); do
-        INSTALL_DIR=$BASE_DIR/${arch}-${api}
+for arch in $ARCHS; do
+    for api in $APIS; do
+        INSTALL_DIR=$BASEDIR/${arch}-${api}
         echo "Creating toolchain for API ${api} and ARCH ${arch}-4.9 in ${INSTALL_DIR}"
-        $MAKE_TOOLCHAIN \
+        # Bash is recommended to make the toolchain
+        bash $MAKE_TOOLCHAIN \
             --platform=android-${api} \
             --toolchain=${arch}-4.9 \
             --install-dir=${INSTALL_DIR} \
