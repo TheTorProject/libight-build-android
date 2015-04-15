@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 ARCHS="arm-linux-androideabi mipsel-linux-android x86"
-APIS="21"
+APIS="9"
 
 if [ $# -eq 0 ]; then
     NDK=$HOME/Android
