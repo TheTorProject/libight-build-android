@@ -36,7 +36,7 @@ libight using that toolchain using the `./scripts/build_target.sh`
 script, which accepts the same command line parameters as the
 script used to create a custom toolchain. For example,
 
-    $ ./wcripts/build_target.sh arm-linux-androideabi 9
+    $ ./scripts/build_target.sh arm-linux-androideabi 9
 
 this script cross compiles libight under `./build` and puts
 the compiled libraries and haders under `./dist`.
