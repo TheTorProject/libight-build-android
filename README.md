@@ -41,6 +41,10 @@ script used to create a custom toolchain. For example,
 this script cross compiles libight under `./build` and puts
 the compiled libraries and haders under `./dist`.
 
+*XXX* The current master branch of libight does not cross compile
+for `android-x86` and MIPS because some small fixes are needed
+to convince `boost` to compile with `libcxx` STL and `gabi++` ABI.
+
 ## TODO next
 
 What is missing to continue this work is to compile and link
