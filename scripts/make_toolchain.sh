@@ -1,31 +1,27 @@
 #!/bin/sh -e
 
-ARCHS="arm-linux-androideabi mipsel-linux-android x86"
-APIS="9"
-
-if [ $# -eq 0 ]; then
-    NDK=$HOME/Android
-elif [ $# -eq 1 ]; then
-    NDK=$1
-else
-    echo "Usage: $0 [/path/to/ndk]" 1>&2
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 ARCH API" 1>&2
+    echo "  ARCH: arm-linux-androideabi mipsel-linux-android x86" 1>&2
+    echo "  API: 1 ... 22" 1>&2
     exit 1
 fi
 
+ARCH=$1
+API=$2
 BASEDIR=./toolchain
+NDK=$HOME/Android
+
 MAKE_TOOLCHAIN=${NDK}/android-ndk-r10d/build/tools/make-standalone-toolchain.sh
 
-for arch in $ARCHS; do
-    for api in $APIS; do
-        INSTALL_DIR=$BASEDIR/${arch}-${api}
-        echo "Creating toolchain for API ${api} and ARCH ${arch}-4.9 in ${INSTALL_DIR}"
-        # Bash is recommended to make the toolchain
-        bash $MAKE_TOOLCHAIN \
-            --platform=android-${api} \
-            --toolchain=${arch}-4.9 \
-            --install-dir=${INSTALL_DIR} \
-            --llvm-version=3.5 \
-            --stl=libc++ \
-            --system=linux-x86_64
-    done
-done
+INSTALL_DIR=$BASEDIR/${ARCH}-${API}
+echo "Creating toolchain for API ${API} and ARCH ${ARCH}-4.9 in ${INSTALL_DIR}"
+
+# Bash is recommended to make the toolchain
+bash $MAKE_TOOLCHAIN \
+  --platform=android-${API} \
+  --toolchain=${ARCH}-4.9 \
+  --install-dir=${INSTALL_DIR} \
+  --llvm-version=3.5 \
+  --stl=libc++ \
+  --system=linux-x86_64
