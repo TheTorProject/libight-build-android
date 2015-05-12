@@ -25,3 +25,11 @@ bash $MAKE_TOOLCHAIN \
   --llvm-version=3.5 \
   --stl=libc++ \
   --system=linux-x86_64
+
+if [ $ARCH = x86 ]; then
+    cp $NDK/android-ndk-r10d/sources/cxx-stl/llvm-libc++/libs/x86/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
+elif [ $ARCH = arm-linux-androideabi ]; then
+    cp $NDK/android-ndk-r10d/sources/cxx-stl/llvm-libc++/libs/armeabi/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
+elif [ $ARCH = mipsel-linux-android ]; then
+    cp $NDK/android-ndk-r10d/sources/cxx-stl/llvm-libc++/libs/mips/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
+fi
