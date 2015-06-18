@@ -34,7 +34,7 @@ export RANLIB=${TOOL_PATH}-ranlib
 export STRIP=${TOOL_PATH}-strip
 
 export CPPFLAGS="${CPPFLAGS} --sysroot=${SYSROOT} -I${SYSROOT}/usr/include -I${ANDROID_TOOLCHAIN}/include"
-export LDFLAGS="${LDFLAGS} -L${SYSROOT}/usr/lib -L${ANDROID_TOOLCHAIN}/lib -lc++_shared -lm"
+export LDFLAGS="${LDFLAGS} -L${SYSROOT}/usr/lib -L${ANDROID_TOOLCHAIN}/lib -lc++_static -latomic -lm"
 
 (
     cd $ROOTDIR
@@ -45,7 +45,8 @@ export LDFLAGS="${LDFLAGS} -L${SYSROOT}/usr/lib -L${ANDROID_TOOLCHAIN}/lib -lc++
     echo "Configure with --host=${ARCH} and toolchain ${ANDROID_TOOLCHAIN}"
     test -x ${ROOTDIR}/libight/configure || (cd ../libight/ && autoreconf -i)
     ${ROOTDIR}/libight/configure --host=${ARCH} --with-sysroot=${SYSROOT} \
-      --with-libevent=builtin --with-libyaml-cpp=builtin --with-libboost=builtin
+      --with-libevent=builtin --with-libyaml-cpp=builtin --with-libboost=builtin \
+      --disable-shared
     make V=0
     # XXX: We want to see whether tests builds but of course they cannot run
     make check-am V=0 || true
