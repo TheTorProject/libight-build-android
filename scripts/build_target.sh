@@ -43,8 +43,8 @@ export LDFLAGS="${LDFLAGS} -L${SYSROOT}/usr/lib -L${ANDROID_TOOLCHAIN}/lib -lc++
     cd ${ROOTDIR}/build/${ARCH}-${API}
     test -f Makefile && make clean
     echo "Configure with --host=${ARCH} and toolchain ${ANDROID_TOOLCHAIN}"
-    test -x ${ROOTDIR}/libight/configure || (cd ../libight/ && autoreconf -i)
-    ${ROOTDIR}/libight/configure --host=${ARCH} --with-sysroot=${SYSROOT} \
+    test -x ${ROOTDIR}/measurement-kit/configure || (cd ../measurement-kit/ && autoreconf -i)
+    ${ROOTDIR}/measurement-kit/configure --host=${ARCH} --with-sysroot=${SYSROOT} \
       --with-libevent=builtin --with-libyaml-cpp=builtin --with-libboost=builtin \
       --disable-shared
     make V=0
