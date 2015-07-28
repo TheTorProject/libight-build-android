@@ -48,8 +48,6 @@ export LDFLAGS="${LDFLAGS} -L${SYSROOT}/usr/lib -L${ANDROID_TOOLCHAIN}/lib -lc++
       --with-libevent=builtin --with-libyaml-cpp=builtin --with-libboost=builtin \
       --disable-shared
     make V=0
-    # XXX: We want to see whether tests builds but of course they cannot run
-    make check-am V=0 || true
     echo "Installing library in ${BASEDIR}/build/${ANDROID_TOOLCHAIN}"
     make install DESTDIR=${ROOTDIR}/dist/${ARCH}-${API}
 )
