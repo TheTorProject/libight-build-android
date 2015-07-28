@@ -25,7 +25,7 @@ bash $MAKE_TOOLCHAIN \
   --platform=android-${API} \
   --toolchain=${ARCH}-4.9 \
   --install-dir=${INSTALL_DIR} \
-  --llvm-version=3.5 \
+  --llvm-version=3.6 \
   --stl=libc++ \
   --system=$(uname | tr -s 'A-Z' 'a-z')-x86_64
 
