@@ -14,7 +14,7 @@ API=$2
 
 (
     cd $ROOTDIR
-    if [ ! -d toolchains/${ARCH}-${API} ]; then
+    if [ ! -d toolchain/${ARCH}-${API} ]; then
         ./scripts/make_toolchain.sh ${ARCH} ${API}
     fi
     ./scripts/build_target.sh ${ARCH} ${API}
