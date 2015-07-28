@@ -1,18 +1,21 @@
 #!/bin/sh -e
 
-if [ $# -ne 2 ]; then
-    echo "Usage: $0 ARCH API" 1>&2
+if [ $# -ne 3 ]; then
+    echo "Usage: $0 NDK_DIR ARCH API" 1>&2
+    echo "  NDK_DIR: path where NDK is installed" 1>&2
     echo "  ARCH: arm-linux-androideabi mipsel-linux-android x86" 1>&2
     echo "  API: 1 ... 21" 1>&2
+    echo "Example usage (on MacOS using brew):" 1>&2
+    echo "  $0 /usr/local/Cellar/android-ndk/r10e" 1>&2
     exit 1
 fi
 
-ARCH=$1
-API=$2
+NDK_DIR=$1
+ARCH=$2
+API=$3
 BASEDIR=./toolchain
-NDK=$HOME/Android
 
-MAKE_TOOLCHAIN=${NDK}/android-ndk-r10d/build/tools/make-standalone-toolchain.sh
+MAKE_TOOLCHAIN=${NDK_DIR}/build/tools/make-standalone-toolchain.sh
 
 INSTALL_DIR=$BASEDIR/${ARCH}-${API}
 echo "Creating toolchain for API ${API} and ARCH ${ARCH}-4.9 in ${INSTALL_DIR}"
@@ -24,12 +27,12 @@ bash $MAKE_TOOLCHAIN \
   --install-dir=${INSTALL_DIR} \
   --llvm-version=3.5 \
   --stl=libc++ \
-  --system=linux-x86_64
+  --system=$(uname | tr -s 'A-Z' 'a-z')-x86_64
 
 if [ $ARCH = x86 ]; then
-    cp $NDK/android-ndk-r10d/sources/cxx-stl/llvm-libc++/libs/x86/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
+    cp $NDK_DIR/sources/cxx-stl/llvm-libc++/libs/x86/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
 elif [ $ARCH = arm-linux-androideabi ]; then
-    cp $NDK/android-ndk-r10d/sources/cxx-stl/llvm-libc++/libs/armeabi/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
+    cp $NDK_DIR/sources/cxx-stl/llvm-libc++/libs/armeabi/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
 elif [ $ARCH = mipsel-linux-android ]; then
-    cp $NDK/android-ndk-r10d/sources/cxx-stl/llvm-libc++/libs/mips/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
+    cp $NDK_DIR/sources/cxx-stl/llvm-libc++/libs/mips/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
 fi
