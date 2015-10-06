@@ -3,7 +3,7 @@
 if [ $# -ne 3 ]; then
     echo "Usage: $0 NDK_DIR ARCH API" 1>&2
     echo "  NDK_DIR: path where NDK is installed" 1>&2
-    echo "  ARCH: aarch64-linux-android arm-linux-androideabi mipsel-linux-android x86 x86_64" 1>&2
+    echo "  ARCH: aarch64-linux-android arm-linux-androideabi mipsel-linux-android mips64el-linux-android x86 x86_64" 1>&2
     echo "  API: 1 ... 21" 1>&2
     echo "Example usage (on MacOS using brew):" 1>&2
     echo "  $0 /usr/local/Cellar/android-ndk/r10e aarch64-linux-android 21" 1>&2

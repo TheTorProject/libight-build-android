@@ -4,7 +4,7 @@ ROOTDIR=$(cd $(dirname $(dirname $0)); pwd)
 
 if [ $# -ne 2 ]; then
     echo "Usage: $0 ARCH API" 1>&2
-    echo "  ARCH: aarch64-linux-android arm-linux-androideabi mipsel-linux-android x86 x86_64" 1>&2
+    echo "  ARCH: aarch64-linux-android arm-linux-androideabi mipsel-linux-android mips64el-linux-android x86 x86_64" 1>&2
     echo "  API: 1 ... 21" 1>&2
     echo "Example usage (on MacOS using brew):" 1>&2
     echo " $0 aarch64-linux-android 21" 1>&2
