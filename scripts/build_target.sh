@@ -4,8 +4,10 @@ ROOTDIR=$(cd $(dirname $(dirname $0)); pwd)
 
 if [ $# -ne 2 ]; then
     echo "Usage: $0 ARCH API" 1>&2
-    echo "  ARCH: arm-linux-androideabi mipsel-linux-android x86" 1>&2
+    echo "  ARCH: aarch64-linux-android arm-linux-androideabi mipsel-linux-android mips64el-linux-android x86 x86_64" 1>&2
     echo "  API: 1 ... 21" 1>&2
+    echo "Example usage (on MacOS using brew):" 1>&2
+    echo " $0 aarch64-linux-android 21" 1>&2
     exit 1
 fi
 
@@ -19,6 +21,12 @@ export SYSROOT=${ANDROID_TOOLCHAIN}/sysroot
 # that shall be passed to `make-standalone-toolchain.sh` (x86).
 if [ $ARCH = x86 ]; then
     export TOOL_PATH=${ANDROID_TOOLCHAIN}/bin/i686-linux-android
+elif [ $ARCH = x86_64 ]; then
+    export TOOL_PATH=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android
+    LIB_SUFFIX=64
+elif [ $ARCH = "mips64el-linux-android" ]; then
+    export TOOL_PATH=${ANDROID_TOOLCHAIN}/bin/${ARCH}
+    LIB_SUFFIX=64
 else
     export TOOL_PATH=${ANDROID_TOOLCHAIN}/bin/${ARCH}
 fi
@@ -34,7 +42,7 @@ export RANLIB=${TOOL_PATH}-ranlib
 export STRIP=${TOOL_PATH}-strip
 
 export CPPFLAGS="${CPPFLAGS} --sysroot=${SYSROOT} -I${SYSROOT}/usr/include -I${ANDROID_TOOLCHAIN}/include"
-export LDFLAGS="${LDFLAGS} -L${SYSROOT}/usr/lib -L${ANDROID_TOOLCHAIN}/lib -lc++_static -latomic -lm"
+export LDFLAGS="${LDFLAGS} -L${SYSROOT}/usr/lib${LIB_SUFFIX} -L${ANDROID_TOOLCHAIN}/lib -lc++_static -latomic -lm"
 
 (
     cd $ROOTDIR
