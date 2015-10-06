@@ -24,6 +24,9 @@ if [ $ARCH = x86 ]; then
 elif [ $ARCH = x86_64 ]; then
     export TOOL_PATH=${ANDROID_TOOLCHAIN}/bin/x86_64-linux-android
     LIB_SUFFIX=64
+elif [ $ARCH = "mips64el-linux-android" ]; then
+    export TOOL_PATH=${ANDROID_TOOLCHAIN}/bin/${ARCH}
+    LIB_SUFFIX=64
 else
     export TOOL_PATH=${ANDROID_TOOLCHAIN}/bin/${ARCH}
 fi

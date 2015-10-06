@@ -39,6 +39,8 @@ elif [ $ARCH = arm-linux-androideabi ]; then
     cp $NDK_DIR/sources/cxx-stl/llvm-libc++/libs/armeabi/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
 elif [ $ARCH = mipsel-linux-android ]; then
     cp $NDK_DIR/sources/cxx-stl/llvm-libc++/libs/mips/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
+elif [ $ARCH = mips64el-linux-android ]; then
+    cp $NDK_DIR/sources/cxx-stl/llvm-libc++/libs/mips64/libc++_static.a $INSTALL_DIR/sysroot/usr/lib/
 else
     echo "FATAL: unknown architecture: $ARCH" 1>&2
     exit 1
